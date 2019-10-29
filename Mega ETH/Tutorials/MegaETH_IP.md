@@ -5,14 +5,14 @@ IP address is a numerical identifier assigned to each device that is connected t
 ## IPv4 vs. IPv6
 
 There are 2 version of the IP protocol and addresses: IPv4 and, newer, IPv6. IPv4 defines an IP address as a 32-bit integer number denoted as 4 0-255 values separated with ".", e.g.: 192.168.0.1
-Because of the depletion of the IPv4 IP address space the newer IPv6 protocol uses 128-bit addresses, denoted as 6 hexadecimal numbers (0x0 - 0xFFFF) separated by ":", e.g.: 2001:db8:0:1234:0:567:8:1
+Because of the depletion of the IPv4 IP address space the newer IPv6 protocol uses 128-bit addresses, denoted as 6 16-bit hexadecimal numbers (0x0 - 0xFFFF) separated by ":", e.g.: 2001:db8:0:1234:0:567:8:1
 The standard Arduino networking libraries (Ethernet3, Ethernet4) support IPv4 only. The W5500 chip itself supports only IPv4 natively, however there is a low-level MACRAW mode for sending Ehternet frames directly and there are some alternative networking libraries (e.g. [Ethersia](https://github.com/njh/ethersia))with IPv6 support built-in.
 
 ## Hard-coding IP address into the sketch
 
 The simplest way to assign an IP address to your Mega ETH-based device is to hard-code the IP address into the sketch:
 
-```c
+```c++
 #include <SPI.h>
 #include <Ethernet3.h>
 
