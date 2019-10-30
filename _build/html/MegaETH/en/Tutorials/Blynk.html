@@ -1,0 +1,171 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Blynk Example &#8212; RobotDyn  documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="IP address" href="MegaETH_HTML_from_sketch.html" />
+    <link rel="prev" title="Web Server" href="WebServer.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="blynk-example">
+<h1>Blynk Example<a class="headerlink" href="#blynk-example" title="Permalink to this headline">¶</a></h1>
+<p>Blynk is a platform with iOS and Android apps to control
+Mega ETH and other popular microcontrollers over the Internet.
+You can easily build graphic interfaces for all your
+projects by simply dragging and dropping widgets.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Downloads, docs, tutorials: <a class="reference external" href="http://www.blynk.cc">http://www.blynk.cc</a></li>
+<li>Sketch generator:           <a class="reference external" href="http://examples.blynk.cc">http://examples.blynk.cc</a></li>
+<li>Blynk community:            <a class="reference external" href="http://community.blynk.cc">http://community.blynk.cc</a></li>
+<li><dl class="first docutils">
+<dt>Follow Blynk:                  <a class="reference external" href="http://www.fb.com/blynkapp">http://www.fb.com/blynkapp</a></dt>
+<dd><a class="reference external" href="http://twitter.com/blynk_app">http://twitter.com/blynk_app</a></dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>Blynk library is licensed under MIT license
+This example code is in public domain.</p>
+<p>You’ll need:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Blynk App (download from AppStore or Google Play)</li>
+<li>RobotDyn Mega ETH board</li>
+</ul>
+</div></blockquote>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;SPI.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;Ethernet3.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;BlynkSimpleEthernet2.h&gt;</span><span class="cp"></span>
+
+<span class="c1">// You should get Auth Token in the Blynk App.</span>
+<span class="c1">// Go to the Project Settings (nut icon).</span>
+<span class="kt">char</span> <span class="n">auth</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;YourAuthToken&quot;</span><span class="p">;</span>
+
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// Debug console</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span>
+
+  <span class="n">Blynk</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">auth</span><span class="p">);</span>
+  <span class="c1">// You can also specify server:</span>
+  <span class="c1">//Blynk.begin(auth, &quot;blynk-cloud.com&quot;, 80);</span>
+  <span class="c1">//Blynk.begin(auth, IPAddress(192,168,1,100), 8080);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Blynk</span><span class="p">.</span><span class="n">run</span><span class="p">();</span>
+  <span class="c1">// You can inject your own code or combine it with other sketches.</span>
+  <span class="c1">// Check other examples on how to communicate with Blynk. Remember</span>
+  <span class="c1">// to avoid delay() function!</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">RobotDyn</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="MegaETH_IP.html">IP address</a></li>
+<li class="toctree-l1"><a class="reference internal" href="WebServer.html">Web Server</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Blynk Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MegaETH_HTML_from_sketch.html">IP address</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MegaETH_MAC.html">Setting up a Mega 2560 ETH Ethernet MAC address</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GoogleDocs.html">Saving Temperature Sensor Data to Google Docs</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="WebServer.html" title="previous chapter">Web Server</a></li>
+      <li>Next: <a href="MegaETH_HTML_from_sketch.html" title="next chapter">IP address</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, RobotDyn.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/MegaETH/en/Tutorials/Blynk.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
