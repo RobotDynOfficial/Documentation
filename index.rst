@@ -21,6 +21,7 @@ Welcome to RobotDyn documentation!
    MegaETH/en/Tutorials/Online-Graph-for-Sensor.md
    MegaETH/en/Tutorials/relay-shield-example.md
    MegaETH/en/Tutorials/ftp-server-sd.md
+   MegaETH/en/Tutorials/data-logger-mysql.md
 
 
 Indices and tables
