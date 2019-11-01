@@ -8,7 +8,7 @@ Welcome to RobotDyn documentation!
 ##################################
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    MegaETH/en/Tutorials/MegaETH_minimal_code.md
@@ -18,6 +18,8 @@ Welcome to RobotDyn documentation!
    MegaETH/en/Tutorials/MegaETH_HTML_from_sketch.md
    MegaETH/en/Tutorials/MegaETH_MAC
    MegaETH/en/Tutorials/GoogleDocs.md
+   MegaETH/en/Tutorials/Online-Graph-for-Sensor.md
+   MegaETH/en/Tutorials/relay-shield-example.md
 
 
 Indices and tables
