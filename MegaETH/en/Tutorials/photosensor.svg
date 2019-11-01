@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:tdo="http://static.transim.com/core/Transim.CAD/schemas/DrawObjectSVGExtension.xsd" viewBox="490 204 236 248" width="236px" height="248px">
+  <g tdo:type="object" transform="matrix(1 0 0 1 590 230)" id="d393c9e4e2374e53848fa05679a3e619">
+    <line x1="0" y1="4" x2="6" y2="10" stroke="#000000" stroke-width="2" stroke-linejoin="round" fill="none" />
+    <line x1="4" y1="0" x2="10" y2="6" stroke="#000000" stroke-width="2" stroke-linejoin="round" fill="none" />
+    <polyline points="0,20 8,20 10,16 14,24 18,16 22,24 26,16 30,24 32,20 40,20" stroke="#000000" stroke-width="2" stroke-linejoin="round" fill="none" />
+    <polygon points="7,9 9,13 5,11" stroke="#000000" stroke-width="2" stroke-linejoin="round" />
+    <polygon points="11,5 13,9 9,7" stroke="#000000" stroke-width="2" stroke-linejoin="round" />
+    <g id="Res_P2" tdo:groupmode="pin" tdo:x="40" tdo:y="20" />
+    <g id="Res_P1" tdo:groupmode="pin" tdo:x="0" tdo:y="20" />
+  </g>
+  <g>
+    <text x="0" y="0" font-size="10" font-family="Arial" font-weight="bold" transform="matrix(1 0 0 1 595 220)">
+      <tspan x="0">R1</tspan>
+    </text>
+  </g>
+  <g tdo:type="object" transform="matrix(1.19248804548121E-08 -1 1 1.19248804548121E-08 499.999999880751 419.999999880751)" id="76d70be015e04ff1a2f6c6de9208055f">
+    <line x1="20" y1="10" x2="10" y2="10" stroke="#000000" stroke-width="2" stroke-linejoin="round" fill="none" />
+    <rect x="0" y="5" width="10" height="10" rx="0" ry="0" stroke="#000000" stroke-width="2" stroke-linejoin="round" fill="none" />
+    <g id="Pin_A0" tdo:groupmode="pin" tdo:x="20" tdo:y="10" />
+  </g>
+  <g>
+    <text x="0" y="0" font-size="10" font-family="Arial" text-anchor="end" font-weight="bold" transform="matrix(1 0 0 1 515.9 435.8)">
+      <tspan x="0">A0</tspan>
+    </text>
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 510 250)" id="481d645fc3c04887b05efcce7b392e72">
+    <line x1="0" y1="0" x2="80" y2="0" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 530 330)" id="88efb7f950404d2f850ea6e6fdc3e952" selectable="true">
+    <polyline points="0,10 8,10 10,6 14,14 18,6 22,14 26,6 30,14 32,10 40,10" stroke="#000000" stroke-width="2" stroke-linejoin="round" fill="none" />
+    <g id="Res_P2" tdo:groupmode="pin" tdo:x="40" tdo:y="10" />
+    <g id="Res_P1" tdo:groupmode="pin" tdo:x="0" tdo:y="10" />
+  </g>
+  <g>
+    <text x="0" y="0" font-size="10" font-family="Arial" font-weight="bold" transform="matrix(1 0 0 1 535 326)">
+      <tspan x="0">R2</tspan>
+    </text>
+    <text x="0" y="0" font-size="10" font-family="Arial" font-weight="bold" transform="matrix(1 0 0 1 535 354)">
+      <tspan x="0">10kΩ</tspan>
+    </text>
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 590 400)" id="1086a506ddeb44c98148ad15a40b1d78">
+    <line x1="10" y1="0" x2="10" y2="17" stroke="#000000" stroke-width="2" stroke-linejoin="round" fill="none" />
+    <polygon points="10,33 0,17 20,17" stroke="#000000" stroke-width="2" stroke-linejoin="round" fill="none" />
+    <g id="Pin_Gnd1" tdo:groupmode="pin" tdo:x="10" tdo:y="0" />
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 510 340)" id="dcfd1883695140db8d6839292a0bea82">
+    <line x1="0" y1="0" x2="0" y2="60" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 510 250)" id="b144e750c4654af790b673118d798d73">
+    <line x1="0" y1="0" x2="0" y2="90" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 600 340)" id="d1a079ccd34747d1bf24961b636f58af">
+    <line x1="0" y1="0" x2="0" y2="60" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 570 340)" id="f229faa41ce64f7d831eb823a1c215cb">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 530 340)" id="d68f6ef5ac8d46008836a299bfecd687">
+    <line x1="0" y1="0" x2="-20" y2="0" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 600 400)" id="d4794525c7da4086889ad0868534e9c4">
+    <line x1="0" y1="0" x2="0" y2="20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  <g tdo:type="object" transform="matrix(1.19248804548121E-08 -1 1 1.19248804548121E-08 689.999999880751 419.999999880751)" id="d9ca122c451d46bda02fb282c5b305dc">
+    <line x1="20" y1="10" x2="10" y2="10" stroke="#000000" stroke-width="2" stroke-linejoin="round" fill="none" />
+    <rect x="0" y="5" width="10" height="10" rx="0" ry="0" stroke="#000000" stroke-width="2" stroke-linejoin="round" fill="none" />
+    <g id="Pin_5V" tdo:groupmode="pin" tdo:x="20" tdo:y="10" />
+  </g>
+  <g>
+    <text x="0" y="0" font-size="10" font-family="Arial" font-weight="bold" transform="matrix(1 0 0 1 700 430)">
+      <tspan x="0">5V</tspan>
+    </text>
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 630 250)" id="d631b9ec1fcc467490b386966934ab88">
+    <line x1="0" y1="0" x2="70" y2="0" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 700 400)" id="a3b8701ec37b4f8fa02860cb82cb97e9">
+    <line x1="0" y1="0" x2="0" y2="10" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+  <g tdo:type="object" transform="matrix(1 0 0 1 700 250)" id="1ec5e08f4acf4a058eeedbc541840e55">
+    <line x1="0" y1="0" x2="0" y2="150" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  </g>
+</svg>
