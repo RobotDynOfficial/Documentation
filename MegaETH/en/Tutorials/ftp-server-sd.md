@@ -6,3 +6,10 @@ The FTP server is created by Github user galledojm ([https://github.com/gallegoj
 
 You can find full code as well as instructions on [Github](https://github.com/gallegojm/Arduino-Ftp-Server/tree/master/FtpServer).
 
+-------
+
+Tags: `Mega_2560_ETH` `Ethernet` `SD`
+
+
+
+
