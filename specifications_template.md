@@ -1,4 +1,10 @@
+#This is the RobotDyn Specifications Template
+
+Please see the Markdown source <a href="specifications_template.md">here</a>
+
 ## PRODUCT NAME
+
+
 
 <!-- If you want to use tables with NO HEADERS-->
 <style>         
@@ -7,8 +13,12 @@
     }
 </style>
 
-|<!-- -->|<!-- -->|  <!-- empty header not shown thanks to style defined above -->
-|---|---|   <!-- minimum 3 dashes for every column -->
+<!-- empty header not shown thanks to style defined above -->
+<!-- minimum 3 dashes for every column at the 2nd line -->
+ <!-- use <br/> to insert lists in cells -->
+
+|<!-- -->|<!-- -->|  
+|---|---|   
 |Input Voltage (VIN/DCВ jack)|7~12V|
 |PowerВ IN (USB)    |5V-limit 500mAВ |
 |PoE Type    |No PoE/Active PoE/Passive PoE|
@@ -16,7 +26,7 @@
 |Digital I/O |54|
 |PWM Output  |12|
 |Analog I/O  |16|
-|Reserved Pins   | - D4В is used forВ SD card select;<br/> - D10В is used for W5500 CS;<br/> - *Optional: D8В is used for W5500В interrupting, D7В is used for W5500 initialization, D9В is used forВ SD card detect| <!-- use <br/> to insert lists in cells -->
+|Reserved Pins   | - D4В is used forВ SD card select;<br/> - D10В is used for W5500 CS;<br/> - *Optional: D8В is used for W5500В interrupting, D7В is used for W5500 initialization, D9В is used forВ SD card detect|
 |USB socket  |Micro-USB|
 |Ethernet socket |RJ45|
 |PCB Size    |53.35Г—101.61mm|
@@ -65,5 +75,3 @@
 |---|---|
 |WiFI module |ESP-01(ESP8266)|
 |Reserved Pins   | &bull; D14/TX3<br/> &bull; D15/RX3| <!-- use "&bull;" for bullets -->
-
-
