@@ -30,7 +30,7 @@ Query OK, 1 row affected (0.00 sec)
 Next we will grant access to the user robotdyn to this database:
 
 ```sql
-mysql> grant all privileges ON robologger.* to 'robotdyn'@'192,168.1.%' identified by 'robotdyn' with grant option;
+mysql> grant all privileges ON robologger.* to 'robotdyn'@'192.168.1.%' identified by 'robotdyn' with grant option;
 Query OK, 0 rows affected (0.00 sec)
 mysql> flush privileges;
 Query OK, 0 rows affected (0.00 sec)

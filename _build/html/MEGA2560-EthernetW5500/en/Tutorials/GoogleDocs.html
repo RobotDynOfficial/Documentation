@@ -1,0 +1,239 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Saving Temperature Sensor Data to Google Docs &#8212; RobotDyn  documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="saving-temperature-sensor-data-to-google-docs">
+<h1>Saving Temperature Sensor Data to Google Docs</h1>
+<p>This example uses a free helper service from pushingbox.com to store temperature sensor data to a Google Sheets document.</p>
+<div class="section" id="step-1-get-accounts-free">
+<h2>Step 1: Get Accounts (FREE)</h2>
+<ol class="arabic simple">
+<li>A regular Google account. Don’t use your main Gmail account please)</li>
+<li>Get a user account on pushingbox.com. FREE!</li>
+</ol>
+</div>
+<div class="section" id="step-2-create-a-google-form-and-get-form-key">
+<h2>Step 2: Create a Google Form and Get FORM KEY</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><div class="first last figure" id="id1">
+<img alt="../../../_images/getformkey.jpg" src="../../../_images/getformkey.jpg" />
+<p class="caption"><span class="caption-text">Fig 1. Create a new form</span></p>
+</div>
+</td>
+<td><div class="first last figure" id="id2">
+<img alt="../../../_images/getformkey2.jpg" src="../../../_images/getformkey2.jpg" />
+<p class="caption"><span class="caption-text">Fig 2. Make a simple TEXT form and click <em>Send Form</em></span></p>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last figure" id="id3">
+<img alt="../../../_images/getformkey3.jpg" src="../../../_images/getformkey3.jpg" />
+<p class="caption"><span class="caption-text">Fig 3. Copy form URL</span></p>
+</div>
+</td>
+<td><div class="first last figure" id="id4">
+<img alt="../../../_images/getformkey4.jpg" src="../../../_images/getformkey4.jpg" />
+<p class="caption"><span class="caption-text">Fig 4. View page source and copy the Text input box ID</span></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Go to your new Google Drive and create a form. In this example I use a single question TEXT responce form. Click <em>send form</em> when done.</p>
+<p>There will be a pop-up shown with an option to copy a URL - click that to copy this URL.
+Open this URL in another tab of your browser. This will get you to the newly created form. Now,right-click and select <em>Inspect Elements</em>. You will see the HTML code of the form. What you need to find is a line of code that defines the Text input box, something like <em>entry.123456789456123</em> (numbers will be different). This is your <strong>form key</strong>, you will need to copy it.</p>
+</div>
+<div class="section" id="step-3-pushingbox-service-and-scenarios">
+<h2>Step 3: Pushingbox, Service and Scenarios</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><div class="first last figure" id="id5">
+<img alt="../../../_images/pushingbox.jpg" src="../../../_images/pushingbox.jpg" />
+<p class="caption"><span class="caption-text">Fig 1. Create a new custom service</span></p>
+</div>
+</td>
+<td><div class="first last figure" id="id6">
+<img alt="../../../_images/pushbox2.jpg" src="../../../_images/pushbox2.jpg" />
+<p class="caption"><span class="caption-text">Fig 2. Copy responce page URL and paste to pushingbox.com Service URL field</span></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Log in to pushingbox.com using the same Google account. Go to <em>My Services</em> and create a new custom service. Now please go to your Google form and submit something. This loads a responce page of a form. Copy it’s URL and paste to pushingbox.com Service URL field. Give it some good name and set method to GET.</p>
+<p>Now go to my scenarios and paste into a scenario field:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>?entry.1917223082=$status$&amp;submit=Submit
+</pre></div>
+</div>
+<p>Change the numbers to your own FORM KEY. Copy the whole string and paste it into the <em>add scenario field</em>. Click ADD.
+Pushingbox should confirm. Click <strong>ADD AN ACTION</strong> and select the Service you created a moment ago.</p>
+<p>This will give you a DEVICE ID remember this, in fact. write it down or copy and paste it into a notepad doc. This will be used in the Mega ETH code.</p>
+<p>Congrats, you are done with that and now its time to work on the sketch for the Mega ETH.</p>
+<p>Step 4: Sketch for the Mega ETH</p>
+<p>Here we post a very simple code to run this example. You will find a section of things to be edited. This code will send responses to the form you created in the form of data. You will see google then creates a spreadsheet and logs all the responses WITH time stamps! Use this to create data logs of temperature, light levels, humidity, motion whatever you want! The example attached uses a DHT11 thermo/humidity sensor. You can easily modify it for your actual purpose.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;SPI.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;Ethernet3.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;EthernetUdp.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;SPI.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;dht11.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#undef int</span>
+<span class="cp">#undef abs</span>
+<span class="cp">#undef double</span>
+<span class="cp">#undef float</span>
+<span class="cp">#undef round</span>
+<span class="n">dht11</span> <span class="n">DHT11</span><span class="p">;</span>
+<span class="cp">#define DHT11PIN 3</span>
+
+<span class="c1">///////////////////////////////</span>
+<span class="c1">///      EDIT THIS STUFF     //</span>
+<span class="c1">///////////////////////////////</span>
+
+<span class="n">byte</span> <span class="n">mac</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0xAA</span><span class="p">,</span> <span class="mh">0xBB</span><span class="p">,</span> <span class="mh">0xCC</span><span class="p">,</span> <span class="mh">0xDD</span><span class="p">,</span> <span class="mh">0xEE</span><span class="p">,</span> <span class="mh">0xFF</span> <span class="p">};</span>  <span class="c1">//Replace with your MAC</span>
+<span class="n">byte</span> <span class="n">ip</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">};</span>     <span class="c1">// Your Mega ETH device IP address</span>
+
+<span class="kt">char</span> <span class="n">devid</span> <span class="o">=</span> <span class="n">v42FE15BC09B20df</span>  <span class="c1">// THIS IS THE DEVICE ID FROM PUSHINGBOX</span>
+
+<span class="kt">int</span> <span class="n">del</span><span class="o">=</span><span class="mi">300</span><span class="p">;</span>  <span class="c1">// Amount of seconds delay between posting to google docs.</span>
+
+<span class="c1">///////////////////////////////</span>
+<span class="c1">//       DONE EDITING        //</span>
+<span class="c1">///////////////////////////////</span>
+
+<span class="kt">char</span> <span class="n">postmsg</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">temp_av</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">server</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;api.pushingbox.com&quot;</span><span class="p">;</span>
+<span class="n">EthernetClient</span> <span class="n">client</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span>
+  <span class="n">Ethernet</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">mac</span><span class="p">,</span> <span class="n">ip</span><span class="p">);</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;connecting...&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">(){</span>
+
+<span class="c1">// average temp reading for &#39;del&#39; time.........................................</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">del</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// Read local temp........................................</span>
+    <span class="kt">int</span> <span class="n">chk</span> <span class="o">=</span> <span class="n">DHT11</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">DHT11PIN</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">Fahrenheit</span><span class="p">(</span><span class="n">DHT11</span><span class="p">.</span><span class="n">temperature</span><span class="p">);</span>
+    <span class="n">temp_av</span><span class="o">=</span><span class="n">temp_av</span><span class="o">+</span><span class="n">temp</span><span class="p">;</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">avtemp</span><span class="o">=</span><span class="n">temp_av</span><span class="o">/</span><span class="p">(</span><span class="n">del</span><span class="p">);</span>
+  <span class="n">temp_av</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+
+
+
+
+  <span class="c1">// Post to Google Form.............................................</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+  <span class="p">{</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;connected&quot;</span><span class="p">);</span>
+    <span class="n">sprintf</span><span class="p">(</span><span class="n">postmsg</span><span class="p">,</span><span class="s">&quot;GET /pushingbox?devid=%c&amp;status=%d HTTP/1.1&quot;</span><span class="p">,</span><span class="n">devid</span><span class="p">,</span><span class="n">avtemp</span><span class="p">);</span>  <span class="c1">// NOTE** In this line of code you can see where the temperature value is inserted into the wed address. It follows &#39;status=&#39; Change that value to whatever you want to post.</span>
+    <span class="n">client</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">postmsg</span><span class="p">);</span>
+    <span class="n">client</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Host: api.pushingbox.com&quot;</span><span class="p">);</span>
+    <span class="n">client</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Connection: close&quot;</span><span class="p">);</span>
+    <span class="n">client</span><span class="p">.</span><span class="n">println</span><span class="p">();</span>
+
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">postmsg</span><span class="p">);</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Host: api.pushingbox.com&quot;</span><span class="p">);</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Connection: close&quot;</span><span class="p">);</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">();</span>
+
+    <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="n">client</span><span class="p">.</span><span class="n">stop</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">client</span><span class="p">.</span><span class="n">connected</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">();</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;disconnecting.&quot;</span><span class="p">);</span>
+    <span class="n">client</span><span class="p">.</span><span class="n">stop</span><span class="p">();</span>
+    <span class="n">k</span><span class="o">==</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+
+<span class="p">}</span>
+
+
+<span class="kt">double</span> <span class="nf">Fahrenheit</span><span class="p">(</span><span class="kt">double</span> <span class="n">celsius</span><span class="p">)</span> <span class="c1">// Function to convert to Fahrenheit</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="mf">1.8</span> <span class="o">*</span> <span class="n">celsius</span> <span class="o">+</span> <span class="mi">32</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, RobotDyn.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/MEGA2560-EthernetW5500/en/Tutorials/GoogleDocs.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

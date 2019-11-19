@@ -1,0 +1,204 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Setting up a Mega 2560 ETH Ethernet MAC address &#8212; RobotDyn  documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="setting-up-a-mega-2560-eth-ethernet-mac-address">
+<h1>Setting up a Mega 2560 ETH Ethernet MAC address</h1>
+<p>Network devices require two identifying addresses to operate on an Ethernet network: an IP address and a MAC (hardware) address. These two addresses operate at different layers of the network, IP is being assigned by a router or (rarely) manually, by an administrator of the network, whereas MAC is usually assigned at the factory, by the device manufacturer.
+Since you are the manufacturer of the device that you build using a Mega ETH, you need to take care of configuring the MAC address yourself to connect it to a network.</p>
+<div class="section" id="hard-coding-the-mac-address-in-your-sketch">
+<h2>Hard-coding the MAC address in your sketch</h2>
+<p>The simplest way is to just hard-code the MAC address into the sketch. For example, start the Arduino IDE, go to File / Examples / Ethernet / WebServer and check out the code starting at line 20:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Enter a MAC address and IP address for your controller below.</span>
+<span class="c1">// The IP address will be dependent on your local network:</span>
+<span class="n">byte</span> <span class="n">mac</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="mh">0xDE</span><span class="p">,</span> <span class="mh">0xAD</span><span class="p">,</span> <span class="mh">0xBC</span><span class="p">,</span> <span class="mh">0xAF</span><span class="p">,</span> <span class="mh">0xFE</span><span class="p">,</span> <span class="mh">0xEB</span> <span class="p">};</span>
+<span class="n">IPAddress</span> <span class="nf">ip</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">101</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Later in the sketch those values are used when the Ethernet connection is initialized:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Ethernet</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span> <span class="n">mac</span><span class="p">,</span> <span class="n">ip</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>You can choose to specify the IP address as shown (this is the case where IP address is being assigned manually by an administrator), or just specify only the MAC address and  obtain the IP address via DHCP (to make the network router choose and assign an unused IP address to the device).
+As you can see in the givenexample, a MAC address is a sequence of 6 2-byte hexadecimal values. Some parts of the address carry a special meaning: for instance, the first three bytes are called the Organisationally Unique Identifier (OUI) while the last three bytes represent the specific Network Interface Controller (NIC). Specific bits within the OUI are also used to signify different modes of operqation of the network device, such as unicast or multicast. The safest way is to set the first byte to “0xDE” as in the example and modify the rest of the address.</p>
+<p>Generating a unique MAC address</p>
+<p>If you are going to deploy more than one Mega ETH to the same Ethernet network, hard-coding a MAC address into the sketch might not be the most convinient option, as you would have to change the sketch for every device and keep track of their values manually. The solution there is to generate a unique address from a random value, as the chances of you picking the same MAC address as some other device on your network is ridiculously small.</p>
+<p>Storing MAC address in EEPROM</p>
+<p>If you’re deploying a number of Mega ETH-based devices on a local network you’ll want them to retain their MAC addressess when powerded down and back up.</p>
+<p>You don’t what the MAC address of each node to change each time it is restarted, this can cause certain issues with DHCP and also having a persistent MAC address is useful for sending messages over the network to uniquely identify which node it came from.</p>
+<p>The example below generates a random MAC address and stores it in EEPROM. The random MAC address is generated on first power up, on each subsequent start after that it is read back out of EEPROM to ensure it stays the same:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;SPI.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;Ethernet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;EEPROM.h&gt;</span><span class="cp"></span>
+
+<span class="n">byte</span> <span class="n">mac</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mh">0xDE</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span> <span class="p">};</span>
+<span class="kt">char</span> <span class="n">macstr</span><span class="p">[</span><span class="mi">18</span><span class="p">];</span>
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span>
+  <span class="c1">// Random MAC address stored in EEPROM</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">EEPROM</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="sc">&#39;#&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">mac</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">EEPROM</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">randomSeed</span><span class="p">(</span><span class="n">analogRead</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+    <span class="n">mac</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xde</span><span class="p">;</span>
+    <span class="n">EEPROM</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">mac</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">mac</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+      <span class="n">EEPROM</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">mac</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">EEPROM</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="sc">&#39;#&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">snprintf</span><span class="p">(</span><span class="n">macstr</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="s">&quot;%02x:%02x:%02x:%02x:%02x:%02x&quot;</span><span class="p">,</span> <span class="n">mac</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mac</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mac</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">mac</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">mac</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">mac</span><span class="p">[</span><span class="mi">5</span><span class="p">]);</span>
+
+  <span class="c1">// Start up networking</span>
+  <span class="n">Ethernet</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">mac</span><span class="p">);</span>
+
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">Ethernet</span><span class="p">.</span><span class="n">localIP</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The only thing to watch out for is if you are using EEPROM elsewhere in your sketch that you don’t rewrite the values with some other stuff.</p>
+</div>
+<div class="section" id="storing-mac-address-on-an-sd-card">
+<h2>Storing MAC address on an SD card</h2>
+<p>The SD library is used to read from / write to an SD card using the built-in Mega ETH Card Reader. The library supports:
+- FAT32 and FAT16 file systems;
+- standard and high-capacity SD cards;
+- 8.3 short filenames only.</p>
+<p>The file names used with the SD library functions can include paths where directory names are separated by forward-slashes, “/”, e.g. “dirname/filename.txt”.</p>
+<p>The microcontroller communicates to the SD card over SPI bus using pins 50, 51, and 52. Another pin must be used to select the SD card, this can be pin 53 or any other pin specified in the call to SD.begin(), it must be configured as output (even if not used), otherwise the SD library won’t work.
+Let’s change the last example to write the MAC address to an SD card file “mac.dat” instead of EEPROM:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+
+<span class="cm">  The circuit:</span>
+<span class="cm">   SD card attached to SPI bus as follows:</span>
+
+<span class="cm">  * MOSI - pin 11</span>
+<span class="cm">  * MISO - pin 12</span>
+<span class="cm">  * CLK - pin 13</span>
+<span class="cm">  * CS - pin 4</span>
+
+<span class="cm">*/</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;SPI.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;SD.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;Ethernet.h&gt;</span><span class="cp"></span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">chipSelect</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="n">byte</span> <span class="n">mac</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mh">0xDE</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span> <span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Open serial communications and wait for port to open:</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span>
+  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">Serial</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">;</span> <span class="c1">// wait for serial port to connect. Needed for native USB port only</span>
+  <span class="p">}</span>
+
+
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;Initializing SD card...&quot;</span><span class="p">);</span>
+
+  <span class="c1">// see if the card is present and can be initialized:</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">SD</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">chipSelect</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;Card failed, or not present&quot;</span><span class="p">);</span>
+    <span class="c1">// don&#39;t do anything more:</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">&quot;card initialized.&quot;</span><span class="p">);</span>
+
+  <span class="c1">// open the file.</span>
+
+  <span class="n">File</span> <span class="n">dataFile</span> <span class="o">=</span> <span class="n">SD</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;mac.dat&quot;</span><span class="p">);</span>
+
+  <span class="c1">// if the file is available, write to it:</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">dataFile</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">mac</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataFile</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+
+    <span class="c1">// if not – create mac.dat, generate a random MAC</span>
+    <span class="c1">// (first byte = 0xDE)</span>
+    <span class="c1">// and store it to mac.dat</span>
+
+    <span class="n">dataFile</span> <span class="o">=</span> <span class="n">SD</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;mac.dat&quot;</span><span class="p">,</span> <span class="n">FILE_WRITE</span><span class="p">);</span>
+    <span class="n">randomSeed</span><span class="p">(</span><span class="n">analogRead</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+    <span class="n">mac</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xde</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">mac</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">dataFile</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">mac</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+    <span class="n">dataFile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="c1">// Start up networking</span>
+  <span class="n">Ethernet</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">mac</span><span class="p">);</span>
+
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">Ethernet</span><span class="p">.</span><span class="n">localIP</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, RobotDyn.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/MEGA2560-EthernetW5500/en/Tutorials/MegaETH_MAC.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

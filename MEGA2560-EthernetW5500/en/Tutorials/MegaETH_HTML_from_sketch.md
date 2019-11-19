@@ -1,4 +1,4 @@
-# IP address
+# Generating and Serving HTML Page from Sketch
 
 IP address is a numerical identifier assigned to each device that is connected to a network that uses Internet Protocol for communication. An IP address can be assigned either manually, by a network administrator, or automatically by a network router or a similar device. The former is called "static IP address setup", the latter is called "dynamic" or DHCP setup, since it uses the DHCP protocol for the IP address quereries and assignements.
 

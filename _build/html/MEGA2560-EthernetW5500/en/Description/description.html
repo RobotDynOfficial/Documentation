@@ -1,0 +1,111 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Graphical diagram &#8212; RobotDyn  documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="graphical-diagram">
+<h1>Graphical diagram</h1>
+<p>If you’re looking to build a network-connected device, RobotDyn MEGA 2560 ETH R3 with LAN and additional Wi-Fi connection, is the best solution use Arduino Mega 2560 R3 and Ethernet controller W5500 and with Wi-Fi module ESP-01!</p>
+<p>RobotDyn MEGA 2560 ETH R3 is a fully featured Ethernet-connected device via LAN or Wi-Fi. Depending on your use case, it can act as a server or a net member. In a server role, it will receive requests from other devices and services in local network and internet, and respond or react accordingly. In a net member role, the RobotDyn MEGA 2560 ETH R3 can collect data from different devices or industrial equipment and send it through the local network or Internet. It can also receive data from local network and internet, and control connected devices and equipment. The RobotDyn MEGA 2560 ETH R3 can also act as stand-alone unit, providing autonomous reaction based on the defined algorithm in response to network changes or other triggers.</p>
+<p>RobotDyn MEGA 2560 ETH R3 features 5 devices on one board:</p>
+<ul class="simple">
+<li>Mega 2560 based on an ATmega2560 with 70 I/O.</li>
+<li>Ethernet controller based on WizNet W5500 TCP/IP.</li>
+<li>Optional PoE function (receiving power directly through the Ethernet cable). Can select passive PoE or active (intellect) PoE.</li>
+<li>Micro SD card module.</li>
+<li>Additional Wi-Fi module ESP-01, based on ESP8266 microcontroller.</li>
+</ul>
+</div>
+<div class="section" id="ports-and-buses">
+<h1>Ports and buses</h1>
+<p>RobotDyn MEGA 2560 ETH R3 has 70 input/output ports, 12 of which can be used for PWM, and 16 analog ports with 10-bits resolution (0 — 1023). The board is equipped with an RJ45, micro USB, DC power jack, and a reset button.</p>
+</div>
+<div class="section" id="w5500-ethernet">
+<h1>W5500 Ethernet</h1>
+<p>WizNet W5500 is a TCP/IP embedded LAN Ethernet controller. It provides TCP/IP Stack, 10BaseT/100BaseTX Ethernet with full or half-duplex, MAC and PHY. W5500 is using a highly efficient SPI protocol, with 80 MHz clocks for high-speed connectivity to Atmega2560. For lower energy consumption, W5500 provides WOL (Wake on LAN) and Power Off modes.</p>
+</div>
+<div class="section" id="esp-01-wi-fi">
+<h1>ESP-01 Wi-Fi</h1>
+<p>On board have socket for connecting Wi-Fi ESP-01 module. Wi-Fi module connecting to Serial3 interface via RX3(D15)/TX3(D14) I/O.</p>
+<p>In Arduino code, for control a Wi-Fi module need to use Serial3 port.</p>
+</div>
+<div class="section" id="micro-sd-card-reader">
+<h1>Micro-SD card reader</h1>
+<p>The board also features the Micro SD card socket. The micro SD card can be used to save and store the data, which can later be transferred over the network. Digital port D4 (CS-CS2) of the ATmega2560 is dedicated to work with the micro SD. For card detect used D9, but you can cut off soldering pads for disconnect this function.</p>
+<p>** Digital port D10 (SS-CS2) is used by WizNet W5500. The Ethernet controller and microSD card are connected through the SPI bus.</p>
+</div>
+<div class="section" id="programming-in-arduino-ide">
+<h1>Programming in Arduino IDE</h1>
+<p>RobotDyn MEGA 2560 ETH R3 can be programmed via an Arduino IDE. Select Arduino Mega 2560 in the «Boards» menu, and use Ethernet3 / Ethernet4 library.</p>
+</div>
+<div class="section" id="power-supply">
+<h1>Power supply</h1>
+<p>RobotDyn MEGA 2560 ETH R3 can be powered via:</p>
+<ul class="simple">
+<li>USB port (5V, 500mA);</li>
+<li>DC-IN jack, PWC 2.1mm, (supporting 7-24V DC input voltage);</li>
+<li>Through an Ethernet cable using PoE (Power over Ethernet) — requires PoE-enabled switch or a PoE injector. Note: PoE module is optional. There are several PoE options available, depending on the PoE equipment you use.</li>
+</ul>
+<p>The Active PoE is compliant with 802.3af or 802.3at. It will check the power coming in, and, if it doesn’t meet the device requirements, it just won’t power up.</p>
+<p>The Passive PoE is a simplified version that does not perform a handshake, so it is important to know what PoE voltage your device supplies requires before plugging in the Ethernet cable and powering it up. If you connect the wrong voltage you may cause permanent electrical damage to the device.</p>
+<p>Make sure to select the correct board option with relevant PoE module.</p>
+</div>
+<div class="section" id="kit-contents">
+<h1>Kit Contents</h1>
+<p>1 x MEGA2560-EthernetW5500 board</p>
+</div>
+<div class="section" id="see-also">
+<h1>See also</h1>
+</div>
+
+
+          </div>
+          
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, RobotDyn.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/MEGA2560-EthernetW5500/en/Description/description.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
