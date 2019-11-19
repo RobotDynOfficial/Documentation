@@ -129,7 +129,7 @@ In the following example we will create a digital clock with a Real Time Clock (
 https://github.com/reeedstudio/libraries/blob/master/DigitalTube/TM1637.h
 ```
 
-!(Schematics)[Making-a-Digital-Clock-Arduino-7-Segment-4-Digit-TM1637.png]
+![Schematics](Making-a-Digital-Clock-Arduino-7-Segment-4-Digit-TM1637.png)
 
 Connect control buttons to MCU pins via 220 Ohm resistors to properly load the power circuit. Connect the SQW pin of the RTC module to INT 0 of your MCU board. This way the RTC will send commands to the MCU to blink **```:```** on your clock. Set time by pressing button 1 and, simultaneously button 2 to adjust hours or button 3 to adjust minutes.
 
