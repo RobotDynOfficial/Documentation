@@ -3,7 +3,8 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
+SPHINXBUILD   = echo
+#sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = _build
 
@@ -17,3 +18,6 @@ help:
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	shopt -s nullglob; for F in ./_build/html/_images/*.{jpg,jpeg,png,gif}; do  if [ ! -f ${F%.*}.webp ] ; then cwebp $F -o ${F%.*}.webp ; fi ; done
+	find ./_build/html/ -iname "*.htm*" -exec embedimg {} \;
+
